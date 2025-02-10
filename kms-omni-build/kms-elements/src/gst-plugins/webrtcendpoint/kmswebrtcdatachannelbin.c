@@ -37,6 +37,38 @@
 GST_DEBUG_CATEGORY_STATIC (kms_webrtc_data_channel_bin_debug_category);
 #define GST_CAT_DEFAULT kms_webrtc_data_channel_bin_debug_category
 
+struct _KmsWebRtcDataChannelBinPrivate
+{
+  GstElement *appsrc;
+  GstElement *appsink;
+  GRecMutex mutex;
+
+  gboolean ordered;
+  gint max_packet_life_time;
+  gint max_packet_retransmits;
+  guint priority;
+  gchar *protocol;
+  gboolean negotiated;
+  guint16 id;
+  gchar *label;
+  guint64 bytes_sent;
+  guint64 bytes_recv;
+  guint64 messages_sent;
+  guint64 messages_recv;
+
+  KmsWebRtcDataChannelState state;
+
+  guint ctrl_bytes_sent;
+
+  DataChannelNewBuffer cb;
+  gpointer user_data;
+  GDestroyNotify notify;
+
+  ResetStreamFunc reset_cb;
+  gpointer reset_data;
+  GDestroyNotify reset_notify;
+};
+
 G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcDataChannelBin, kms_webrtc_data_channel_bin,
     GST_TYPE_BIN)
 
@@ -71,38 +103,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcDataChannelBin, kms_webrtc_data_channel_bin
     KmsWebRtcDataChannelBinPrivate                     \
   )                                                    \
  )
-
-struct _KmsWebRtcDataChannelBinPrivate
-{
-  GstElement *appsrc;
-  GstElement *appsink;
-  GRecMutex mutex;
-
-  gboolean ordered;
-  gint max_packet_life_time;
-  gint max_packet_retransmits;
-  guint priority;
-  gchar *protocol;
-  gboolean negotiated;
-  guint16 id;
-  gchar *label;
-  guint64 bytes_sent;
-  guint64 bytes_recv;
-  guint64 messages_sent;
-  guint64 messages_recv;
-
-  KmsWebRtcDataChannelState state;
-
-  guint ctrl_bytes_sent;
-
-  DataChannelNewBuffer cb;
-  gpointer user_data;
-  GDestroyNotify notify;
-
-  ResetStreamFunc reset_cb;
-  gpointer reset_data;
-  GDestroyNotify reset_notify;
-};
 
 #define KMS_WEBRTC_DATA_CHANNEL_BIN_LOCK(obj) \
   (g_rec_mutex_lock (&KMS_WEBRTC_DATA_CHANNEL_BIN_CAST ((obj))->priv->mutex))

@@ -25,6 +25,15 @@
 GST_DEBUG_CATEGORY_STATIC (kms_webrtc_data_channel_debug_category);
 #define GST_CAT_DEFAULT kms_webrtc_data_channel_debug_category
 
+struct _KmsWebRtcDataChannelPrivate
+{
+  KmsWebRtcDataChannelBin *channel_bin;
+  DataChannelNewBuffer cb;
+  gpointer user_data;
+  GDestroyNotify notify;
+  GRecMutex mutex;
+};
+
 G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcDataChannel, kms_webrtc_data_channel,
     G_TYPE_OBJECT);
 
@@ -42,15 +51,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcDataChannel, kms_webrtc_data_channel,
     KmsWebRtcDataChannelPrivate                    \
   )                                                \
 )
-
-struct _KmsWebRtcDataChannelPrivate
-{
-  KmsWebRtcDataChannelBin *channel_bin;
-  DataChannelNewBuffer cb;
-  gpointer user_data;
-  GDestroyNotify notify;
-  GRecMutex mutex;
-};
 
 #define KMS_WEBRTC_DATA_CHANNEL_LOCK(obj) \
   (g_rec_mutex_lock (&KMS_WEBRTC_DATA_CHANNEL_CAST ((obj))->priv->mutex))

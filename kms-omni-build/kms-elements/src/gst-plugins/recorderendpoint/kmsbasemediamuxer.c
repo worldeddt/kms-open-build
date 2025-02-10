@@ -19,11 +19,11 @@
 #include "config.h"
 #endif
 
+#include "kmsbasemediamuxer.h"
+
 #include <gst/gst.h>
 #include <commons/kmsutils.h>
 #include <commons/kms-core-enumtypes.h>
-
-#include "kmsbasemediamuxer.h"
 
 #define OBJECT_NAME "basemediamuxer"
 
@@ -33,9 +33,9 @@ GST_DEBUG_CATEGORY_STATIC (kms_base_media_muxer_debug_category);
 #define GST_CAT_DEFAULT kms_base_media_muxer_debug_category
 
 G_DEFINE_TYPE_WITH_PRIVATE (KmsBaseMediaMuxer, kms_base_media_muxer, G_TYPE_OBJECT);
-G_DEFINE_TYPE_WITH_CODE (KmsBaseMediaMuxer, kms_base_media_muxer, G_TYPE_OBJECT,
-    GST_DEBUG_CATEGORY_INIT (kms_base_media_muxer_debug_category, OBJECT_NAME,
-        0, "debug category for muxing pipeline object"));
+//G_DEFINE_TYPE_WITH_CODE (KmsBaseMediaMuxer, kms_base_media_muxer, G_TYPE_OBJECT,
+//    GST_DEBUG_CATEGORY_INIT (kms_base_media_muxer_debug_category, OBJECT_NAME,
+//        0, "debug category for muxing pipeline object"));
 
 #define HTTP_PROTO "http"
 #define HTTPS_PROTO "https"
@@ -352,6 +352,7 @@ kms_base_media_muxer_class_init (KmsBaseMediaMuxerClass * klass)
 static void
 kms_base_media_muxer_init (KmsBaseMediaMuxer * self)
 {
+    self->priv = kms_base_media_muxer_get_instance_private (self);
   g_rec_mutex_init (&self->mutex);
   KMS_BASE_MEDIA_MUXER_GET_PIPELINE (self) = gst_pipeline_new (NULL);
 }

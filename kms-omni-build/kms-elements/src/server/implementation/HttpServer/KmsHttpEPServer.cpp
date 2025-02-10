@@ -86,10 +86,13 @@ static GType http_t = G_TYPE_INVALID;
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsHttpEPServer, kms_http_ep_server,
-                         G_TYPE_OBJECT,
-                         GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, OBJECT_NAME,
-                             0, "debug category for " OBJECT_NAME " element") )
+G_DEFINE_TYPE_WITH_PRIVATE(KmsHttpEPServer, kms_http_ep_server,
+                                                    G_TYPE_OBJECT);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsHttpEPServer, kms_http_ep_server,
+//                         G_TYPE_OBJECT,
+//                         GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, OBJECT_NAME,
+//                             0, "debug category for " OBJECT_NAME " element") )
 
 /* properties */
 enum {
@@ -1324,7 +1327,7 @@ kms_http_ep_server_class_init (KmsHttpEPServerClass *klass)
       g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
   /* Registers a private structure for an instantiatable type */
-  g_type_class_add_private (klass, sizeof (KmsHttpEPServerPrivate) );
+//  g_type_class_add_private (klass, sizeof (KmsHttpEPServerPrivate) );
 }
 
 static gboolean
@@ -1340,6 +1343,7 @@ static void
 kms_http_ep_server_init (KmsHttpEPServer *self)
 {
   self->priv = KMS_HTTP_EP_SERVER_GET_PRIVATE (self);
+  self->priv = kms_http_ep_server_get_instance_private (self);
 
   /* Set default values */
   self->priv->server = nullptr;

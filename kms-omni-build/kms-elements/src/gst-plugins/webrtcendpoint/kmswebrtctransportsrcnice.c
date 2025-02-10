@@ -57,7 +57,7 @@ struct _KmsWebrtcTransportSrcNicePrivate
   GList *pending_buffers;
 };
 
-G_DEFINE_TYPE_WITH_CODE (KmsWebrtcTransportSrcNice, kms_webrtc_transport_src_nice, KMS_TYPE_WEBRTC_TRANSPORT_SRC,
+G_DEFINE_TYPE_WITH_PRIVATE (KmsWebrtcTransportSrcNice, kms_webrtc_transport_src_nice, KMS_TYPE_WEBRTC_TRANSPORT_SRC);
 
 //G_DEFINE_TYPE_WITH_CODE (KmsWebrtcTransportSrcNice, kms_webrtc_transport_src_nice, KMS_TYPE_WEBRTC_TRANSPORT_SRC,
 //    G_ADD_PRIVATE (KmsWebrtcTransportSrcNice));

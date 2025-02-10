@@ -42,6 +42,30 @@ GST_DEBUG_CATEGORY_STATIC (kms_buffer_injector_debug);
 #define GST_CAT_DEFAULT kms_buffer_injector_debug
 #define kms_buffer_injector_parent_class parent_class
 
+typedef enum
+{
+  VIDEO,
+  AUDIO
+} MediaType;
+
+struct _KmsBufferInjectorPrivate
+{
+  GRecMutex thread_mutex;
+  GstPad *sinkpad;
+  GstPad *srcpad;
+  gboolean configured;
+  gboolean still_waiting;
+  MediaType type;
+  GstBuffer *previous_buffer;
+  GMutex mutex_generate;
+  GCond cond_generate;
+  /* milliseconds */
+  gint64 wait_time;
+  /* nanoseconds */
+  gint64 acumulated_time;
+  gint64 factor_wait_time;
+};
+
 G_DEFINE_TYPE_WITH_PRIVATE (KmsBufferInjector, kms_buffer_injector,
     GST_TYPE_ELEMENT)
 
@@ -69,30 +93,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (KmsBufferInjector, kms_buffer_injector,
 #define KMS_BUFFER_INJECTOR_UNLOCK(obj) (                         \
   g_rec_mutex_unlock (&KMS_BUFFER_INJECTOR (obj)->priv->thread_mutex) \
 )
-
-typedef enum
-{
-  VIDEO,
-  AUDIO
-} MediaType;
-
-struct _KmsBufferInjectorPrivate
-{
-  GRecMutex thread_mutex;
-  GstPad *sinkpad;
-  GstPad *srcpad;
-  gboolean configured;
-  gboolean still_waiting;
-  MediaType type;
-  GstBuffer *previous_buffer;
-  GMutex mutex_generate;
-  GCond cond_generate;
-  /* milliseconds */
-  gint64 wait_time;
-  /* nanoseconds */
-  gint64 acumulated_time;
-  gint64 factor_wait_time;
-};
 
 enum
 {

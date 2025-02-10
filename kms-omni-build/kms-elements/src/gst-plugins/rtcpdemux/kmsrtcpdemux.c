@@ -124,8 +124,8 @@ GST_STATIC_PAD_TEMPLATE ("rtcp_src_%u",
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_PRVATE (KmsRtcpDemux, kms_rtcp_demux,
-    GST_TYPE_ELEMENT)
+G_DEFINE_TYPE_WITH_PRIVATE (KmsRtcpDemux, kms_rtcp_demux,
+    GST_TYPE_ELEMENT);
 
 //G_DEFINE_TYPE_WITH_CODE (KmsRtcpDemux, kms_rtcp_demux,
 //    GST_TYPE_ELEMENT,
