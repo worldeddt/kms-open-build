@@ -550,7 +550,8 @@ kms_enc_tree_bin_new (const GstCaps * caps, gint target_bitrate,
 static void
 kms_enc_tree_bin_init (KmsEncTreeBin * self)
 {
-  self->priv = KMS_ENC_TREE_BIN_GET_PRIVATE (self);
+//  self->priv = KMS_ENC_TREE_BIN_GET_PRIVATE (self);
+  self->priv = kms_enc_tree_bin_get_instance_private (self);
 
   self->priv->remb_manager = NULL;
 

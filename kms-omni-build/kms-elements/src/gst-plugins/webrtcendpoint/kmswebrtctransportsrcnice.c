@@ -58,7 +58,9 @@ struct _KmsWebrtcTransportSrcNicePrivate
 };
 
 G_DEFINE_TYPE_WITH_CODE (KmsWebrtcTransportSrcNice, kms_webrtc_transport_src_nice, KMS_TYPE_WEBRTC_TRANSPORT_SRC,
-    G_ADD_PRIVATE (KmsWebrtcTransportSrcNice));
+
+//G_DEFINE_TYPE_WITH_CODE (KmsWebrtcTransportSrcNice, kms_webrtc_transport_src_nice, KMS_TYPE_WEBRTC_TRANSPORT_SRC,
+//    G_ADD_PRIVATE (KmsWebrtcTransportSrcNice));
 
 
 
@@ -99,13 +101,14 @@ store_pending_dtls_buffer (GstBuffer **buffer, guint idx, gpointer user_data)
 }
 
 
-
 static void
 kms_webrtc_transport_src_nice_init (KmsWebrtcTransportSrcNice * self)
 {
   KmsWebrtcTransportSrc *parent = KMS_WEBRTC_TRANSPORT_SRC (self);
 
-  self->priv = KMS_WEBRTC_TRANSPORT_SRC_NICE_GET_PRIVATE (self);
+  // self->priv = KMS_WEBRTC_TRANSPORT_SRC_NICE_GET_PRIVATE (self);
+   self->priv = kms_webrtc_transport_src_nice_get_instance_private (self);
+
   parent->src = gst_element_factory_make ("nicesrc", NULL);
 
   kms_webrtc_transport_src_connect_elements (parent);

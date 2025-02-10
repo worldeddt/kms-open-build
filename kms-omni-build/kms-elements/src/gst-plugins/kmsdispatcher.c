@@ -60,10 +60,13 @@ struct _KmsDispatcherPortData
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsDispatcher, kms_dispatcher,
-    KMS_TYPE_BASE_HUB,
-    GST_DEBUG_CATEGORY_INIT (kms_dispatcher_debug_category, PLUGIN_NAME,
-        0, "debug category for dispatcher element"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsDispatcher, kms_dispatcher,
+    KMS_TYPE_BASE_HUB);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsDispatcher, kms_dispatcher,
+//    KMS_TYPE_BASE_HUB,
+//    GST_DEBUG_CATEGORY_INIT (kms_dispatcher_debug_category, PLUGIN_NAME,
+//        0, "debug category for dispatcher element"));
 
 enum
 {
@@ -269,13 +272,15 @@ kms_dispatcher_class_init (KmsDispatcherClass * klass)
       G_TYPE_UINT);
 
   /* Registers a private structure for the instantiatable type */
-  g_type_class_add_private (klass, sizeof (KmsDispatcherPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsDispatcherPrivate));
 }
 
 static void
 kms_dispatcher_init (KmsDispatcher * self)
 {
-  self->priv = KMS_DISPATCHER_GET_PRIVATE (self);
+  // self->priv = KMS_DISPATCHER_GET_PRIVATE (self);
+   self->priv = kms_dispatcher_get_instance_private (self);
+
   self->priv->ports = g_hash_table_new_full (g_int_hash, g_int_equal,
       destroy_gint, kms_dispatcher_port_data_destroy);
 

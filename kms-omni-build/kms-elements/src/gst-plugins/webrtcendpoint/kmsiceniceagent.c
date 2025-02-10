@@ -417,7 +417,8 @@ kms_ice_nice_agent_finalize (GObject * object)
 static void
 kms_ice_nice_agent_init (KmsIceNiceAgent * self)
 {
-  self->priv = KMS_ICE_NICE_AGENT_GET_PRIVATE (self);
+  // self->priv = KMS_ICE_NICE_AGENT_GET_PRIVATE (self);
+   self->priv = kms_ice_nice_agent_get_instance_private (self);
 }
 
 static void
@@ -815,7 +816,7 @@ kms_ice_nice_agent_class_init (KmsIceNiceAgentClass * klass)
   base_class->get_controlling_mode = kms_ice_nice_agent_get_controlling_mode;
   base_class->remove_stream = kms_ice_nice_agent_remove_stream;
 
-  g_type_class_add_private (klass, sizeof (KmsIceNiceAgentPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsIceNiceAgentPrivate));
 
   GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, GST_DEFAULT_NAME, 0,
       GST_DEFAULT_NAME);

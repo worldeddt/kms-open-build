@@ -53,10 +53,13 @@ struct _KmsKSRMuxerPrivate
   guint audio_id;
 };
 
-G_DEFINE_TYPE_WITH_CODE (KmsKSRMuxer, kms_ksr_muxer,
-    KMS_TYPE_BASE_MEDIA_MUXER,
-    GST_DEBUG_CATEGORY_INIT (kms_ksr_muxer_debug_category, OBJECT_NAME,
-        0, "debug category for muxing pipeline object"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsKSRMuxer, kms_ksr_muxer,
+    KMS_TYPE_BASE_MEDIA_MUXER)
+
+//G_DEFINE_TYPE_WITH_CODE (KmsKSRMuxer, kms_ksr_muxer,
+//    KMS_TYPE_BASE_MEDIA_MUXER,
+//    GST_DEBUG_CATEGORY_INIT (kms_ksr_muxer_debug_category, OBJECT_NAME,
+//        0, "debug category for muxing pipeline object"));
 
 static void
 kms_ksr_muxer_finalize (GObject * obj)
@@ -226,7 +229,7 @@ kms_ksr_muxer_class_init (KmsKSRMuxerClass * klass)
   basemediamuxerclass->add_src = kms_ksr_muxer_add_src;
   basemediamuxerclass->remove_src = kms_ksr_muxer_remove_src;
 
-  g_type_class_add_private (klass, sizeof (KmsKSRMuxerPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsKSRMuxerPrivate));
 }
 
 static void
@@ -234,7 +237,8 @@ kms_ksr_muxer_init (KmsKSRMuxer * self)
 {
   GError *err = NULL;
 
-  self->priv = KMS_KSR_MUXER_GET_PRIVATE (self);
+  // self->priv = KMS_KSR_MUXER_GET_PRIVATE (self);
+   self->priv = kms_ksr_muxer_get_instance_private (self);
 
   self->priv->tracks = g_hash_table_new_full (g_str_hash, g_str_equal, g_free,
       g_free);

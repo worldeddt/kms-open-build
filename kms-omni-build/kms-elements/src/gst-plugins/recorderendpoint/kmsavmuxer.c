@@ -62,10 +62,13 @@ typedef struct _BufferListItData
   GstElement *elem;
 } BufferListItData;
 
-G_DEFINE_TYPE_WITH_CODE (KmsAVMuxer, kms_av_muxer,
-    KMS_TYPE_BASE_MEDIA_MUXER,
-    GST_DEBUG_CATEGORY_INIT (kms_av_muxer_debug_category, OBJECT_NAME,
-        0, "debug category for muxing pipeline object"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsAVMuxer, kms_av_muxer,
+    KMS_TYPE_BASE_MEDIA_MUXER);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsAVMuxer, kms_av_muxer,
+//    KMS_TYPE_BASE_MEDIA_MUXER,
+//    GST_DEBUG_CATEGORY_INIT (kms_av_muxer_debug_category, OBJECT_NAME,
+//        0, "debug category for muxing pipeline object"));
 
 GstStateChangeReturn
 kms_av_muxer_set_state (KmsBaseMediaMuxer * obj, GstState state)
@@ -133,13 +136,14 @@ kms_av_muxer_class_init (KmsAVMuxerClass * klass)
   basemediamuxerclass->add_src = kms_av_muxer_add_src;
   basemediamuxerclass->remove_src = kms_av_muxer_remove_src;
 
-  g_type_class_add_private (klass, sizeof (KmsAVMuxerPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsAVMuxerPrivate));
 }
 
 static void
 kms_av_muxer_init (KmsAVMuxer * self)
 {
-  self->priv = KMS_AV_MUXER_GET_PRIVATE (self);
+  // self->priv = KMS_AV_MUXER_GET_PRIVATE (self);
+   self->priv = kms_av_muxer_get_instance_private (self);
 
   self->priv->lastVideoPts = G_GUINT64_CONSTANT (0);
   self->priv->lastAudioPts = G_GUINT64_CONSTANT (0);

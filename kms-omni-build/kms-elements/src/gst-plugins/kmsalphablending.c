@@ -118,10 +118,13 @@ struct _KmsAlphaBlendingPrivate
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsAlphaBlending, kms_alpha_blending,
-    KMS_TYPE_BASE_HUB,
-    GST_DEBUG_CATEGORY_INIT (kms_alpha_blending_debug_category, PLUGIN_NAME,
-        0, "debug category for alphablending element"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsAlphaBlending, kms_alpha_blending,
+    KMS_TYPE_BASE_HUB);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsAlphaBlending, kms_alpha_blending,
+//    KMS_TYPE_BASE_HUB,
+//    GST_DEBUG_CATEGORY_INIT (kms_alpha_blending_debug_category, PLUGIN_NAME,
+//        0, "debug category for alphablending element"));
 
 typedef struct _KmsAlphaBlendingData
 {
@@ -1026,13 +1029,14 @@ kms_alpha_blending_class_init (KmsAlphaBlendingClass * klass)
       __kms_core_marshal_VOID__BOXED, G_TYPE_NONE, 1, GST_TYPE_STRUCTURE);
 
   /* Registers a private structure for the instantiatable type */
-  g_type_class_add_private (klass, sizeof (KmsAlphaBlendingPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsAlphaBlendingPrivate));
 }
 
 static void
 kms_alpha_blending_init (KmsAlphaBlending * self)
 {
-  self->priv = KMS_ALPHA_BLENDING_GET_PRIVATE (self);
+  // self->priv = KMS_ALPHA_BLENDING_GET_PRIVATE (self);
+   self->priv = kms_alpha_blending_get_instance_private (self);
 
   g_rec_mutex_init (&self->priv->mutex);
 

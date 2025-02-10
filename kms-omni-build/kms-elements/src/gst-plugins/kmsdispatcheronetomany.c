@@ -69,10 +69,13 @@ enum
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsDispatcherOneToMany, kms_dispatcher_one_to_many,
-    KMS_TYPE_BASE_HUB,
-    GST_DEBUG_CATEGORY_INIT (kms_dispatcher_one_to_many_debug_category,
-        PLUGIN_NAME, 0, "debug category for dispatcheronetomany element"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsDispatcherOneToMany, kms_dispatcher_one_to_many,
+    KMS_TYPE_BASE_HUB);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsDispatcherOneToMany, kms_dispatcher_one_to_many,
+//    KMS_TYPE_BASE_HUB,
+//    GST_DEBUG_CATEGORY_INIT (kms_dispatcher_one_to_many_debug_category,
+//        PLUGIN_NAME, 0, "debug category for dispatcheronetomany element"));
 
 static KmsDispatcherOneToManyPortData *
 kms_dispatcher_one_to_many_port_data_create (KmsDispatcherOneToMany * mixer,
@@ -319,13 +322,14 @@ kms_dispatcher_one_to_many_class_init (KmsDispatcherOneToManyClass * klass)
           MAIN_PORT_NONE, G_PARAM_READWRITE));
 
   /* Registers a private structure for the instantiatable type */
-  g_type_class_add_private (klass, sizeof (KmsDispatcherOneToManyPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsDispatcherOneToManyPrivate));
 }
 
 static void
 kms_dispatcher_one_to_many_init (KmsDispatcherOneToMany * self)
 {
-  self->priv = KMS_DISPATCHER_ONE_TO_MANY_GET_PRIVATE (self);
+  // self->priv = KMS_DISPATCHER_ONE_TO_MANY_GET_PRIVATE (self);
+   self->priv = kms_dispatcher_one_to_many_get_instance_private (self);
 
   g_rec_mutex_init (&self->priv->mutex);
   self->priv->ports = g_hash_table_new_full (g_int_hash, g_int_equal,

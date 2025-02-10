@@ -325,7 +325,7 @@ remove_tee_pad_on_unlink (GstPad * pad, GstPad * peer, gpointer user_data)
 static void
 link_element_to_tee (GstElement * tee, GstElement * element)
 {
-  GstPad *tee_src = gst_element_get_request_pad (tee, "src_%u");
+  GstPad *tee_src = gst_element_request_pad_simple (tee, "src_%u");
   GstPad *element_sink = gst_element_get_static_pad (element, "sink");
   GstPadLinkReturn ret;
 
@@ -1436,7 +1436,8 @@ kms_agnostic_bin2_init (KmsAgnosticBin2 * self)
   GstElement *tee, *fakesink;
   GstPad *target, *sink;
 
-  self->priv = KMS_AGNOSTIC_BIN2_GET_PRIVATE (self);
+//  self->priv = KMS_AGNOSTIC_BIN2_GET_PRIVATE (self);
+  self->priv = kms_agnostic_bin2_get_instance_private (self);
 
   tee = kms_utils_element_factory_make ("tee", "agnosticbin");
   self->priv->input_tee = tee;

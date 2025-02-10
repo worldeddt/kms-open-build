@@ -54,10 +54,13 @@ struct _KmsWebRtcSctpConnectionPrivate
 static void kms_webrtc_rtp_connection_interface_init (KmsIRtpConnectionInterface
     * iface);
 
-G_DEFINE_TYPE_WITH_CODE (KmsWebRtcSctpConnection, kms_webrtc_sctp_connection,
-    KMS_TYPE_WEBRTC_BASE_CONNECTION,
-    G_IMPLEMENT_INTERFACE (KMS_TYPE_I_RTP_CONNECTION,
-        kms_webrtc_rtp_connection_interface_init));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcSctpConnection, kms_webrtc_sctp_connection,
+    KMS_TYPE_WEBRTC_BASE_CONNECTION);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsWebRtcSctpConnection, kms_webrtc_sctp_connection,
+//    KMS_TYPE_WEBRTC_BASE_CONNECTION,
+//    G_IMPLEMENT_INTERFACE (KMS_TYPE_I_RTP_CONNECTION,
+//        kms_webrtc_rtp_connection_interface_init));
 
 static gchar *
 kms_webrtc_sctp_connection_get_certificate_pem (KmsWebRtcBaseConnection *
@@ -275,7 +278,9 @@ kms_webrtc_sctp_connection_finalize (GObject * object)
 static void
 kms_webrtc_sctp_connection_init (KmsWebRtcSctpConnection * self)
 {
-  self->priv = KMS_WEBRTC_SCTP_CONNECTION_GET_PRIVATE (self);
+  // self->priv = KMS_WEBRTC_SCTP_CONNECTION_GET_PRIVATE (self);
+   self->priv = kms_webrtc_sctp_connection_get_instance_private (self);
+
   self->priv->connected = FALSE;
 }
 
@@ -294,7 +299,7 @@ kms_webrtc_sctp_connection_class_init (KmsWebRtcSctpConnectionClass * klass)
   base_conn_class->get_certificate_pem =
       kms_webrtc_sctp_connection_get_certificate_pem;
 
-  g_type_class_add_private (klass, sizeof (KmsWebRtcSctpConnectionPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsWebRtcSctpConnectionPrivate));
 
   GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, GST_DEFAULT_NAME, 0,
       GST_DEFAULT_NAME);

@@ -74,10 +74,13 @@ static GParamSpec *obj_properties[N_PROPERTIES] = { NULL, };
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsUriEndpoint, kms_uri_endpoint,
-    KMS_TYPE_ELEMENT,
-    GST_DEBUG_CATEGORY_INIT (kms_uri_endpoint_debug_category, PLUGIN_NAME,
-        0, "debug category for uriendpoint element"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsUriEndpoint, kms_uri_endpoint,
+    KMS_TYPE_ELEMENT)
+
+//G_DEFINE_TYPE_WITH_CODE (KmsUriEndpoint, kms_uri_endpoint,
+//    KMS_TYPE_ELEMENT,
+//    GST_DEBUG_CATEGORY_INIT (kms_uri_endpoint_debug_category, PLUGIN_NAME,
+//        0, "debug category for uriendpoint element"));
 
 static const gchar *str_uristate[] = {
   "stop",
@@ -281,7 +284,8 @@ kms_uri_endpoint_class_init (KmsUriEndpointClass * klass)
 static void
 kms_uri_endpoint_init (KmsUriEndpoint * self)
 {
-  self->priv = KMS_URI_ENDPOINT_GET_PRIVATE (self);
+//  self->priv = KMS_URI_ENDPOINT_GET_PRIVATE (self);
+  self->priv = kms_uri_endpoint_get_instance_private (self);
   self->uri = NULL;
 }
 

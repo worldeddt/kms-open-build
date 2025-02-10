@@ -113,7 +113,8 @@ kms_rtp_synchronizer_class_init (KmsRtpSynchronizerClass * klass)
 static void
 kms_rtp_synchronizer_init (KmsRtpSynchronizer * self)
 {
-  self->priv = KMS_RTP_SYNCHRONIZER_GET_PRIVATE (self);
+//  self->priv = KMS_RTP_SYNCHRONIZER_GET_PRIVATE (self);
+  self->priv = kms_rtp_synchronizer_get_instance_private (self);
 
   g_rec_mutex_init (&self->priv->mutex);
   g_mutex_init (&self->priv->stats_mutex);

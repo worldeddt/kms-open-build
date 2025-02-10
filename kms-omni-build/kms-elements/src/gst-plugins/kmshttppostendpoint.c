@@ -78,10 +78,13 @@ enum
 
 static guint http_post_ep_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE_WITH_CODE (KmsHttpPostEndpoint, kms_http_post_endpoint,
-    KMS_TYPE_HTTP_ENDPOINT,
-    GST_DEBUG_CATEGORY_INIT (kms_http_post_endpoint_debug_category, PLUGIN_NAME,
-        0, "debug category for http post endpoint plugin"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsHttpPostEndpoint, kms_http_post_endpoint,
+    KMS_TYPE_HTTP_ENDPOINT);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsHttpPostEndpoint, kms_http_post_endpoint,
+//    KMS_TYPE_HTTP_ENDPOINT,
+//    GST_DEBUG_CATEGORY_INIT (kms_http_post_endpoint_debug_category, PLUGIN_NAME,
+//        0, "debug category for http post endpoint plugin"));
 
 static void
 bus_message (GstBus * bus, GstMessage * msg, KmsHttpEndpoint * self)
@@ -487,13 +490,15 @@ kms_http_post_endpoint_class_init (KmsHttpPostEndpointClass * klass)
   klass->push_buffer = kms_http_post_endpoint_push_buffer_action;
   klass->end_of_stream = kms_http_post_endpoint_end_of_stream_action;
 
-  g_type_class_add_private (klass, sizeof (KmsHttpPostEndpointPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsHttpPostEndpointPrivate));
 }
 
 static void
 kms_http_post_endpoint_init (KmsHttpPostEndpoint * self)
 {
-  self->priv = KMS_HTTP_POST_ENDPOINT_GET_PRIVATE (self);
+  // self->priv = KMS_HTTP_POST_ENDPOINT_GET_PRIVATE (self);
+   self->priv = kms_http_post_endpoint_get_instance_private (self);
+
   KMS_HTTP_ENDPOINT (self)->method = KMS_HTTP_ENDPOINT_METHOD_POST;
 }
 

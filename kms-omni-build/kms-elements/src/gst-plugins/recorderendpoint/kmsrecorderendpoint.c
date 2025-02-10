@@ -212,11 +212,13 @@ mark_buffer_probe_data_destroy (MarkBufferProbeData * data)
 }
 
 /* class initialization */
+G_DEFINE_TYPE_WITH_PRIVATE (KmsRecorderEndpoint, kms_recorder_endpoint,
+    KMS_TYPE_URI_ENDPOINT)
 
-G_DEFINE_TYPE_WITH_CODE (KmsRecorderEndpoint, kms_recorder_endpoint,
-    KMS_TYPE_URI_ENDPOINT,
-    GST_DEBUG_CATEGORY_INIT (kms_recorder_endpoint_debug_category, PLUGIN_NAME,
-        0, "debug category for recorderendpoint element"));
+//G_DEFINE_TYPE_WITH_CODE (KmsRecorderEndpoint, kms_recorder_endpoint,
+//    KMS_TYPE_URI_ENDPOINT,
+//    GST_DEBUG_CATEGORY_INIT (kms_recorder_endpoint_debug_category, PLUGIN_NAME,
+//        0, "debug category for recorderendpoint element"));
 
 static GstBusSyncReply bus_sync_signal_handler (GstBus * bus, GstMessage * msg,
     gpointer data);
@@ -1986,7 +1988,7 @@ kms_recorder_endpoint_class_init (KmsRecorderEndpointClass * klass)
       N_PROPERTIES, obj_properties);
 
   /* Registers a private structure for the instantiatable type */
-  g_type_class_add_private (klass, sizeof (KmsRecorderEndpointPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsRecorderEndpointPrivate));
 }
 
 typedef struct _ErrorData
@@ -2101,7 +2103,8 @@ kms_recorder_endpoint_init (KmsRecorderEndpoint * self)
 {
   GError *err = NULL;
 
-  self->priv = KMS_RECORDER_ENDPOINT_GET_PRIVATE (self);
+  // self->priv = KMS_RECORDER_ENDPOINT_GET_PRIVATE (self);
+   self->priv = kms_recorder_endpoint_get_instance_private (self);
 
   self->priv->transition = KMS_RECORDER_ENDPOINT_COMPLETED;
   self->priv->generate_pads = TRUE;

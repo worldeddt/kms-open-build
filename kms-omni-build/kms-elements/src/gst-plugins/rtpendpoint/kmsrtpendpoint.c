@@ -1148,7 +1148,7 @@ kms_rtp_endpoint_class_init (KmsRtpEndpointClass * klass)
       G_STRUCT_OFFSET (KmsRtpEndpointClass, key_soft_limit), NULL, NULL,
       g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
-  g_type_class_add_private (klass, sizeof (KmsRtpEndpointPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsRtpEndpointPrivate));
 }
 
 /* TODO: not add abs-send-time extmap */
@@ -1156,7 +1156,8 @@ kms_rtp_endpoint_class_init (KmsRtpEndpointClass * klass)
 static void
 kms_rtp_endpoint_init (KmsRtpEndpoint * self)
 {
-  self->priv = KMS_RTP_ENDPOINT_GET_PRIVATE (self);
+  // self->priv = KMS_RTP_ENDPOINT_GET_PRIVATE (self);
+   self->priv = kms_rtp_endpoint_get_instance_private (self);
 
   self->priv->sdes_keys = g_hash_table_new_full (g_str_hash, g_str_equal,
       g_free, (GDestroyNotify) kms_ref_struct_unref);

@@ -319,13 +319,14 @@ kms_ice_candidate_class_init (KmsIceCandidateClass * klass)
           0, G_MAXUINT8, DEFAULT_SDP_M_LINE_INDEX,
           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
-  g_type_class_add_private (klass, sizeof (KmsIceCandidatePrivate));
+  // g_type_class_add_private (klass, sizeof (KmsIceCandidatePrivate));
 }
 
 static void
 kms_ice_candidate_init (KmsIceCandidate * self)
 {
-  self->priv = KMS_ICE_CANDIDATE_GET_PRIVATE (self);
+  // self->priv = KMS_ICE_CANDIDATE_GET_PRIVATE (self);
+   self->priv = kms_ice_candidate_get_instance_private (self);
 
   self->priv->candidate = DEFAULT_CANDIDATE;
   self->priv->sdp_mid = DEFAULT_SDP_MID;

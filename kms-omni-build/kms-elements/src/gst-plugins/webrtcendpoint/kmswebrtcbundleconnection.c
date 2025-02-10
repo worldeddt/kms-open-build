@@ -322,7 +322,9 @@ kms_webrtc_bundle_connection_finalize (GObject * object)
 static void
 kms_webrtc_bundle_connection_init (KmsWebRtcBundleConnection * self)
 {
-  self->priv = KMS_WEBRTC_BUNDLE_CONNECTION_GET_PRIVATE (self);
+  // self->priv = KMS_WEBRTC_BUNDLE_CONNECTION_GET_PRIVATE (self);
+   self->priv = kms_webrtc_bundle_connection_get_instance_private (self);
+
   self->priv->connected = FALSE;
 }
 
@@ -341,7 +343,7 @@ kms_webrtc_bundle_connection_class_init (KmsWebRtcBundleConnectionClass * klass)
   base_conn_class->get_certificate_pem =
       kms_webrtc_bundle_connection_get_certificate_pem;
 
-  g_type_class_add_private (klass, sizeof (KmsWebRtcBundleConnectionPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsWebRtcBundleConnectionPrivate));
 
   GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, GST_DEFAULT_NAME, 0,
       GST_DEFAULT_NAME);

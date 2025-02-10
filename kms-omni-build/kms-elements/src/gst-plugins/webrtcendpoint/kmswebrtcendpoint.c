@@ -966,7 +966,7 @@ kms_webrtc_endpoint_class_init (KmsWebrtcEndpointClass * klass)
       NULL, NULL, __kms_webrtc_marshal_BOOLEAN__STRING, G_TYPE_BOOLEAN, 1,
       G_TYPE_STRING);
 
-  g_type_class_add_private (klass, sizeof (KmsWebrtcEndpointPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsWebrtcEndpointPrivate));
 }
 
 static void
@@ -976,7 +976,9 @@ kms_webrtc_endpoint_init (KmsWebrtcEndpoint * self)
   g_object_set (G_OBJECT (self), "bundle", TRUE, "rtcp-mux", TRUE, "rtcp-nack",
       TRUE, "rtcp-remb", TRUE, NULL);
 
-  self->priv = KMS_WEBRTC_ENDPOINT_GET_PRIVATE (self);
+  // self->priv = KMS_WEBRTC_ENDPOINT_GET_PRIVATE (self);
+   self->priv = kms_webrtc_endpoint_get_instance_private (self);
+
   self->priv->stun_server_ip = DEFAULT_STUN_SERVER_IP;
   self->priv->stun_server_port = DEFAULT_STUN_SERVER_PORT;
   self->priv->turn_url = DEFAULT_STUN_TURN_URL;

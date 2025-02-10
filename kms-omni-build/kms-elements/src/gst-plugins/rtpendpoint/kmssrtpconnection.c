@@ -61,10 +61,13 @@ struct _KmsSrtpConnectionPrivate
 static void
 kms_srtp_connection_interface_init (KmsIRtpConnectionInterface * iface);
 
-G_DEFINE_TYPE_WITH_CODE (KmsSrtpConnection, kms_srtp_connection,
-    KMS_TYPE_RTP_BASE_CONNECTION,
-    G_IMPLEMENT_INTERFACE (KMS_TYPE_I_RTP_CONNECTION,
-        kms_srtp_connection_interface_init));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsSrtpConnection, kms_srtp_connection,
+    KMS_TYPE_RTP_BASE_CONNECTION);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsSrtpConnection, kms_srtp_connection,
+//    KMS_TYPE_RTP_BASE_CONNECTION,
+//    G_IMPLEMENT_INTERFACE (KMS_TYPE_I_RTP_CONNECTION,
+//        kms_srtp_connection_interface_init));
 
 static gchar *auths[] = {
   NULL,
@@ -495,7 +498,9 @@ kms_srtp_connection_finalize (GObject * object)
 static void
 kms_srtp_connection_init (KmsSrtpConnection * self)
 {
-  self->priv = KMS_SRTP_CONNECTION_GET_PRIVATE (self);
+  // self->priv = KMS_SRTP_CONNECTION_GET_PRIVATE (self);
+   self->priv = kms_srtp_connection_get_instance_private (self);
+
   self->priv->connected = FALSE;
 }
 
@@ -518,7 +523,7 @@ kms_srtp_connection_class_init (KmsSrtpConnectionClass * klass)
   base_conn_class->get_rtcp_port = kms_srtp_connection_get_rtcp_port;
   base_conn_class->set_remote_info = kms_srtp_connection_set_remote_info;
 
-  g_type_class_add_private (klass, sizeof (KmsSrtpConnectionPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsSrtpConnectionPrivate));
 
   g_object_class_override_property (gobject_class, PROP_ADDED, "added");
   g_object_class_override_property (gobject_class, PROP_CONNECTED, "connected");

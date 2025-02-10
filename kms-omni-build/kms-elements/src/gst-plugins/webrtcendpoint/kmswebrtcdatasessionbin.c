@@ -32,30 +32,6 @@
 GST_DEBUG_CATEGORY_STATIC (kms_webrtc_data_session_bin_debug_category);
 #define GST_CAT_DEFAULT kms_webrtc_data_session_bin_debug_category
 
-G_DEFINE_TYPE_WITH_CODE (KmsWebRtcDataSessionBin, kms_webrtc_data_session_bin,
-    GST_TYPE_BIN,
-    GST_DEBUG_CATEGORY_INIT (kms_webrtc_data_session_bin_debug_category,
-        PLUGIN_NAME, 0, "debug category for webrtc_data_session_bin"));
-
-#define parent_class kms_webrtc_data_session_bin_parent_class
-
-#define DEFAULT_DTLS_CLIENT_MODE FALSE
-#define DEFAULT_SCTP_LOCAL_PORT 0
-#define DEFAULT_SCTP_REMOTE_PORT 0
-
-#define SCTP_PORT_MIN 0
-#define SCTP_PORT_MAX 65534
-
-#define IS_EVEN(stream_id) (!((stream_id) & 0x01))
-
-#define KMS_WEBRTC_DATA_SESSION_BIN_GET_PRIVATE(obj) ( \
-  G_TYPE_INSTANCE_GET_PRIVATE (                        \
-    (obj),                                             \
-    KMS_TYPE_WEBRTC_DATA_SESSION_BIN,                  \
-    KmsWebRtcDataSessionBinPrivate                     \
-  )                                                    \
- )
-
 struct _KmsWebRtcDataSessionBinPrivate
 {
   guint16 assoc_id;
@@ -81,6 +57,33 @@ struct _KmsWebRtcDataSessionBinPrivate
   guint opened;
   guint closed;
 };
+
+G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcDataSessionBin, kms_webrtc_data_session_bin,
+    GST_TYPE_BIN)
+
+//G_DEFINE_TYPE_WITH_CODE (KmsWebRtcDataSessionBin, kms_webrtc_data_session_bin,
+//    GST_TYPE_BIN,
+//    GST_DEBUG_CATEGORY_INIT (kms_webrtc_data_session_bin_debug_category,
+//        PLUGIN_NAME, 0, "debug category for webrtc_data_session_bin"));
+
+#define parent_class kms_webrtc_data_session_bin_parent_class
+
+#define DEFAULT_DTLS_CLIENT_MODE FALSE
+#define DEFAULT_SCTP_LOCAL_PORT 0
+#define DEFAULT_SCTP_REMOTE_PORT 0
+
+#define SCTP_PORT_MIN 0
+#define SCTP_PORT_MAX 65534
+
+#define IS_EVEN(stream_id) (!((stream_id) & 0x01))
+
+#define KMS_WEBRTC_DATA_SESSION_BIN_GET_PRIVATE(obj) ( \
+  G_TYPE_INSTANCE_GET_PRIVATE (                        \
+    (obj),                                             \
+    KMS_TYPE_WEBRTC_DATA_SESSION_BIN,                  \
+    KmsWebRtcDataSessionBinPrivate                     \
+  )                                                    \
+ )
 
 #define KMS_WEBRTC_DATA_SESSION_BIN_LOCK(obj) \
   (g_rec_mutex_lock (&KMS_WEBRTC_DATA_SESSION_BIN_CAST ((obj))->priv->mutex))
@@ -420,7 +423,7 @@ kms_webrtc_data_session_bin_class_init (KmsWebRtcDataSessionBinClass * klass)
   klass->get_data_channel = kms_webrtc_data_session_bin_get_data_channel_action;
   klass->stats = kms_webrtc_data_session_bin_stats_action;
 
-  g_type_class_add_private (klass, sizeof (KmsWebRtcDataSessionBinPrivate));
+//  g_type_class_add_private (klass, sizeof (KmsWebRtcDataSessionBinPrivate));
 }
 
 static gboolean
@@ -822,7 +825,8 @@ kms_webrtc_data_session_bin_init (KmsWebRtcDataSessionBin * self)
   GstPad *pad, *target;
   gchar *name;
 
-  self->priv = KMS_WEBRTC_DATA_SESSION_BIN_GET_PRIVATE (self);
+//  self->priv = KMS_WEBRTC_DATA_SESSION_BIN_GET_PRIVATE (self);
+  self->priv = kms_webrtc_data_session_bin_get_instance_private (self);
 
   g_rec_mutex_init (&self->priv->mutex);
 

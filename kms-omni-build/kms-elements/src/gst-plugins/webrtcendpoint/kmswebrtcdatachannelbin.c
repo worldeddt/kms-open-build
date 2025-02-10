@@ -37,10 +37,13 @@
 GST_DEBUG_CATEGORY_STATIC (kms_webrtc_data_channel_bin_debug_category);
 #define GST_CAT_DEFAULT kms_webrtc_data_channel_bin_debug_category
 
-G_DEFINE_TYPE_WITH_CODE (KmsWebRtcDataChannelBin, kms_webrtc_data_channel_bin,
-    GST_TYPE_BIN,
-    GST_DEBUG_CATEGORY_INIT (kms_webrtc_data_channel_bin_debug_category,
-        PLUGIN_NAME, 0, "debug category for webrtc_data_channel_bin"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcDataChannelBin, kms_webrtc_data_channel_bin,
+    GST_TYPE_BIN)
+
+//G_DEFINE_TYPE_WITH_CODE (KmsWebRtcDataChannelBin, kms_webrtc_data_channel_bin,
+//    GST_TYPE_BIN,
+//    GST_DEBUG_CATEGORY_INIT (kms_webrtc_data_channel_bin_debug_category,
+//        PLUGIN_NAME, 0, "debug category for webrtc_data_channel_bin"));
 
 #define parent_class kms_webrtc_data_channel_bin_parent_class
 
@@ -639,7 +642,7 @@ kms_webrtc_data_channel_bin_class_init (KmsWebRtcDataChannelBinClass * klass)
   klass->request_open = kms_webrtc_data_channel_bin_request_open;
   klass->request_close = kms_webrtc_data_channel_bin_request_close;
 
-  g_type_class_add_private (klass, sizeof (KmsWebRtcDataChannelBinPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsWebRtcDataChannelBinPrivate));
 }
 
 static void
@@ -911,7 +914,8 @@ kms_webrtc_data_channel_bin_init (KmsWebRtcDataChannelBin * self)
   GstPad *pad, *target;
   gchar *name;
 
-  self->priv = KMS_WEBRTC_DATA_CHANNEL_BIN_GET_PRIVATE (self);
+  // self->priv = KMS_WEBRTC_DATA_CHANNEL_BIN_GET_PRIVATE (self);
+   self->priv = kms_webrtc_data_channel_bin_get_instance_private (self);
 
   self->priv->bytes_recv = G_GUINT64_CONSTANT (0);
   self->priv->bytes_sent = G_GUINT64_CONSTANT (0);

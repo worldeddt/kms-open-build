@@ -60,11 +60,13 @@ struct _KmsSelectableMixerPortData
 };
 
 /* class initialization */
+G_DEFINE_TYPE_WITH_PRIVATE (KmsSelectableMixer, kms_selectable_mixer,
+    KMS_TYPE_BASE_HUB);
 
-G_DEFINE_TYPE_WITH_CODE (KmsSelectableMixer, kms_selectable_mixer,
-    KMS_TYPE_BASE_HUB,
-    GST_DEBUG_CATEGORY_INIT (kms_selectable_mixer_debug_category, PLUGIN_NAME,
-        0, "debug category for selectable_mixer element"));
+//G_DEFINE_TYPE_WITH_CODE (KmsSelectableMixer, kms_selectable_mixer,
+//    KMS_TYPE_BASE_HUB,
+//    GST_DEBUG_CATEGORY_INIT (kms_selectable_mixer_debug_category, PLUGIN_NAME,
+//        0, "debug category for selectable_mixer element"));
 
 enum
 {
@@ -468,13 +470,15 @@ kms_selectable_mixer_class_init (KmsSelectableMixerClass * klass)
       G_TYPE_UINT);
 
   /* Registers a private structure for the instantiatable type */
-  g_type_class_add_private (klass, sizeof (KmsSelectableMixerPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsSelectableMixerPrivate));
 }
 
 static void
 kms_selectable_mixer_init (KmsSelectableMixer * self)
 {
-  self->priv = KMS_SELECTABLE_MIXER_GET_PRIVATE (self);
+//   self->priv = KMS_SELECTABLE_MIXER_GET_PRIVATE (self);
+   self->priv = kms_selectable_mixer_get_instance_private (self);
+
   self->priv->ports = g_hash_table_new_full (g_int_hash, g_int_equal,
       destroy_gint, kms_selectable_mixer_port_data_destroy);
 

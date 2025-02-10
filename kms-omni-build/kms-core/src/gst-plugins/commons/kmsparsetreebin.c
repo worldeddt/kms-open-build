@@ -199,7 +199,8 @@ kms_parse_tree_bin_get_parser (KmsParseTreeBin * self)
 static void
 kms_parse_tree_bin_init (KmsParseTreeBin * self)
 {
-  self->priv = KMS_PARSE_TREE_BIN_GET_PRIVATE (self);
+//  self->priv = KMS_PARSE_TREE_BIN_GET_PRIVATE (self);
+  self->priv = kms_parse_tree_bin_get_instance_private (self);
 
   self->priv->last_buffer_dts = GST_CLOCK_TIME_NONE;
   self->priv->last_buffer_pts = GST_CLOCK_TIME_NONE;

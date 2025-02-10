@@ -117,10 +117,13 @@ enum
 
 static guint kms_player_endpoint_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE_WITH_CODE (KmsPlayerEndpoint, kms_player_endpoint,
-    KMS_TYPE_URI_ENDPOINT,
-    GST_DEBUG_CATEGORY_INIT (kms_player_endpoint_debug_category, PLUGIN_NAME,
-        0, "debug category for playerendpoint element"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsPlayerEndpoint, kms_player_endpoint,
+    KMS_TYPE_URI_ENDPOINT);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsPlayerEndpoint, kms_player_endpoint,
+//    KMS_TYPE_URI_ENDPOINT,
+//    GST_DEBUG_CATEGORY_INIT (kms_player_endpoint_debug_category, PLUGIN_NAME,
+//        0, "debug category for playerendpoint element"));
 
 typedef struct _KmsPtsData
 {
@@ -1145,7 +1148,7 @@ kms_player_endpoint_class_init (KmsPlayerEndpointClass * klass)
       __kms_elements_marshal_BOOLEAN__INT64, G_TYPE_BOOLEAN, 1, G_TYPE_INT64);
 
   /* Registers a private structure for the instantiatable type */
-  g_type_class_add_private (klass, sizeof (KmsPlayerEndpointPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsPlayerEndpointPrivate));
 }
 
 static gboolean
@@ -1357,7 +1360,8 @@ kms_player_endpoint_init (KmsPlayerEndpoint * self)
 {
   GstBus *bus;
 
-  self->priv = KMS_PLAYER_ENDPOINT_GET_PRIVATE (self);
+  // self->priv = KMS_PLAYER_ENDPOINT_GET_PRIVATE (self);
+   self->priv = kms_player_endpoint_get_instance_private (self);
 
   g_mutex_init (&self->priv->base_time_mutex);
   self->priv->base_time = GST_CLOCK_TIME_NONE;

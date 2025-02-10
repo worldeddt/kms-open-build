@@ -124,10 +124,13 @@ GST_STATIC_PAD_TEMPLATE ("rtcp_src_%u",
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsRtcpDemux, kms_rtcp_demux,
-    GST_TYPE_ELEMENT,
-    GST_DEBUG_CATEGORY_INIT (kms_rtcp_demux_debug_category, PLUGIN_NAME,
-        0, "debug category for rtcpdemux element"));
+G_DEFINE_TYPE_WITH_PRVATE (KmsRtcpDemux, kms_rtcp_demux,
+    GST_TYPE_ELEMENT)
+
+//G_DEFINE_TYPE_WITH_CODE (KmsRtcpDemux, kms_rtcp_demux,
+//    GST_TYPE_ELEMENT,
+//    GST_DEBUG_CATEGORY_INIT (kms_rtcp_demux_debug_category, PLUGIN_NAME,
+//        0, "debug category for rtcpdemux element"));
 
 static guint32
 kms_rtcp_demux_get_local_rr_ssrc_pair (KmsRtcpDemux * self, guint32 remote_ssrc)
@@ -383,7 +386,8 @@ kms_rtcp_demux_init (KmsRtcpDemux * rtcpdemux)
   GstPadTemplate *tmpl;
   GstPad *sink;
 
-  rtcpdemux->priv = KMS_RTCP_DEMUX_GET_PRIVATE (rtcpdemux);
+//  rtcpdemux->priv = KMS_RTCP_DEMUX_GET_PRIVATE (rtcpdemux);
+  rtcpdemux->priv = kms_rtcp_demux_get_instance_private (rtcpdemux);
 
   tmpl = gst_static_pad_template_get (&rtp_src_template);
   rtcpdemux->priv->rtp_src =
@@ -467,7 +471,7 @@ kms_rtcp_demux_class_init (KmsRtcpDemuxClass * klass)
       G_STRUCT_OFFSET (KmsRtcpDemuxClass, new_ssrc_pad), NULL, NULL,
       NULL, G_TYPE_NONE, 2, G_TYPE_UINT, GST_TYPE_PAD);
 
-  g_type_class_add_private (klass, sizeof (KmsRtcpDemuxPrivate));
+//  g_type_class_add_private (klass, sizeof (KmsRtcpDemuxPrivate));
 }
 
 gboolean

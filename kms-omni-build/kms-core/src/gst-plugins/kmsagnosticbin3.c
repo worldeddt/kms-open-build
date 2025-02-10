@@ -273,7 +273,7 @@ connect_srcpad_to_encoder (GstPad * srcpad, GstPad * sinkpad)
     goto end;
   }
 
-  target = gst_element_get_request_pad (transcoder, "src_%u");
+  target = gst_element_request_pad_simple (transcoder, "src_%u");
   g_object_unref (transcoder);
 
   GST_DEBUG_OBJECT (srcpad, "Setting target %" GST_PTR_FORMAT, target);
@@ -639,7 +639,7 @@ set_transcoder_src_target_pad (GstGhostPad * pad, GstElement * transcoder)
   GstPad *target;
   gboolean ret;
 
-  target = gst_element_get_request_pad (transcoder, "src_%u");
+  target = gst_element_request_pad_simple (transcoder, "src_%u");
 
   if (!(ret = gst_ghost_pad_set_target (GST_GHOST_PAD (pad), target))) {
     GST_ERROR_OBJECT (pad, "Can not set target pad");
@@ -942,7 +942,8 @@ kms_agnostic_bin3_class_init (KmsAgnosticBin3Class * klass)
 static void
 kms_agnostic_bin3_init (KmsAgnosticBin3 * self)
 {
-  self->priv = KMS_AGNOSTIC_BIN3_GET_PRIVATE (self);
+//  self->priv = KMS_AGNOSTIC_BIN3_GET_PRIVATE (self);
+  self->priv = kms_agnostic_bin3_get_instance_private (self);
   g_rec_mutex_init (&self->priv->mutex);
   self->priv->sinkcaps = g_hash_table_new_full (g_direct_hash, g_direct_equal,
       NULL, (GDestroyNotify) gst_caps_unref);

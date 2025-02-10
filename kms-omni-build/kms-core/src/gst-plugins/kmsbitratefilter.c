@@ -216,7 +216,8 @@ kms_bitrate_filter_transform_caps (GstBaseTransform * base,
 static void
 kms_bitrate_filter_init (KmsBitrateFilter * self)
 {
-  self->priv = KMS_BITRATE_FILTER_GET_PRIVATE (self);
+//  self->priv = KMS_BITRATE_FILTER_GET_PRIVATE (self);
+  self->priv = kms_bitrate_filter_get_instance_private (self);
   kms_bitrate_calc_data_init (&self->priv->bitrate_calc_data);
 }
 

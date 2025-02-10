@@ -101,10 +101,13 @@ struct _KmsCompositeMixerPrivate
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsCompositeMixer, kms_composite_mixer,
-    KMS_TYPE_BASE_HUB,
-    GST_DEBUG_CATEGORY_INIT (kms_composite_mixer_debug_category, PLUGIN_NAME,
-        0, "debug category for compositemixer element"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsCompositeMixer, kms_composite_mixer,
+    KMS_TYPE_BASE_HUB);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsCompositeMixer, kms_composite_mixer,
+//    KMS_TYPE_BASE_HUB,
+//    GST_DEBUG_CATEGORY_INIT (kms_composite_mixer_debug_category, PLUGIN_NAME,
+//        0, "debug category for compositemixer element"));
 
 typedef struct _KmsCompositeMixerData
 {
@@ -821,13 +824,14 @@ kms_composite_mixer_class_init (KmsCompositeMixerClass * klass)
       gst_static_pad_template_get (&video_sink_factory));
 
   /* Registers a private structure for the instantiatable type */
-  g_type_class_add_private (klass, sizeof (KmsCompositeMixerPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsCompositeMixerPrivate));
 }
 
 static void
 kms_composite_mixer_init (KmsCompositeMixer * self)
 {
-  self->priv = KMS_COMPOSITE_MIXER_GET_PRIVATE (self);
+  // self->priv = KMS_COMPOSITE_MIXER_GET_PRIVATE (self);
+   self->priv = kms_composite_mixer_get_instance_private (self);
 
   g_rec_mutex_init (&self->priv->mutex);
 

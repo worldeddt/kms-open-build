@@ -57,10 +57,13 @@ static guint http_ep_signals[LAST_SIGNAL] = { 0 };
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsHttpEndpoint, kms_http_endpoint,
-    KMS_TYPE_ELEMENT,
-    GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, PLUGIN_NAME,
-        0, "debug category for httpendpoint element"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsHttpEndpoint, kms_http_endpoint,
+    KMS_TYPE_ELEMENT)
+
+//G_DEFINE_TYPE_WITH_CODE (KmsHttpEndpoint, kms_http_endpoint,
+//    KMS_TYPE_ELEMENT,
+//    GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, PLUGIN_NAME,
+//        0, "debug category for httpendpoint element"));
 
 static void
 kms_http_endpoint_dispose (GObject * object)

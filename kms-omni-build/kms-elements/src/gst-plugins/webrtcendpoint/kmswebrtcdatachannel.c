@@ -25,10 +25,13 @@
 GST_DEBUG_CATEGORY_STATIC (kms_webrtc_data_channel_debug_category);
 #define GST_CAT_DEFAULT kms_webrtc_data_channel_debug_category
 
-G_DEFINE_TYPE_WITH_CODE (KmsWebRtcDataChannel, kms_webrtc_data_channel,
-    G_TYPE_OBJECT,
-    GST_DEBUG_CATEGORY_INIT (kms_webrtc_data_channel_debug_category,
-        PLUGIN_NAME, 0, "debug category for webrtc_data_channel"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcDataChannel, kms_webrtc_data_channel,
+    G_TYPE_OBJECT);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsWebRtcDataChannel, kms_webrtc_data_channel,
+//    G_TYPE_OBJECT,
+//    GST_DEBUG_CATEGORY_INIT (kms_webrtc_data_channel_debug_category,
+//        PLUGIN_NAME, 0, "debug category for webrtc_data_channel"));
 
 #define parent_class kms_webrtc_data_channel_parent_class
 
@@ -78,7 +81,7 @@ kms_webrtc_data_channel_class_init (KmsWebRtcDataChannelClass * klass)
 
   gobject_class->finalize = kms_webrtc_data_channel_bin_finalize;
 
-  g_type_class_add_private (klass, sizeof (KmsWebRtcDataChannelPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsWebRtcDataChannelPrivate));
 }
 
 static GstFlowReturn
@@ -106,7 +109,9 @@ kms_webrtc_data_channel_new_buffer (GObject * obj, GstBuffer * buffer,
 static void
 kms_webrtc_data_channel_init (KmsWebRtcDataChannel * self)
 {
-  self->priv = KMS_WEBRTC_DATA_CHANNEL_GET_PRIVATE (self);
+  // self->priv = KMS_WEBRTC_DATA_CHANNEL_GET_PRIVATE (self);
+   self->priv = kms_webrtc_data_channel_get_instance_private (self);
+
   g_rec_mutex_init (&self->priv->mutex);
 }
 

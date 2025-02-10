@@ -26,10 +26,13 @@ GST_DEBUG_CATEGORY_STATIC (GST_CAT_DEFAULT);
 
 #define parent_class kms_webrtc_transport_parent_class
 
-G_DEFINE_TYPE_WITH_CODE (KmsWebRtcTransport, kms_webrtc_transport,
-    G_TYPE_OBJECT,
-    GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, GST_DEFAULT_NAME, 0,
-        GST_DEFAULT_NAME));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcTransport, kms_webrtc_transport,
+    G_TYPE_OBJECT);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsWebRtcTransport, kms_webrtc_transport,
+//    G_TYPE_OBJECT,
+//    GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, GST_DEFAULT_NAME, 0,
+//        GST_DEFAULT_NAME));
 
 static void
 element_remove_probe (GstElement * e, const gchar * pad_name, gulong id)

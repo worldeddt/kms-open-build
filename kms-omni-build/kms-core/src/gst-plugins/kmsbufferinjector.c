@@ -42,10 +42,13 @@ GST_DEBUG_CATEGORY_STATIC (kms_buffer_injector_debug);
 #define GST_CAT_DEFAULT kms_buffer_injector_debug
 #define kms_buffer_injector_parent_class parent_class
 
-G_DEFINE_TYPE_WITH_CODE (KmsBufferInjector, kms_buffer_injector,
-    GST_TYPE_ELEMENT,
-    GST_DEBUG_CATEGORY_INIT (kms_buffer_injector_debug,
-        PLUGIN_NAME, 0, "debug category for " PLUGIN_NAME " element"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsBufferInjector, kms_buffer_injector,
+    GST_TYPE_ELEMENT)
+
+//G_DEFINE_TYPE_WITH_CODE (KmsBufferInjector, kms_buffer_injector,
+//    GST_TYPE_ELEMENT,
+//    GST_DEBUG_CATEGORY_INIT (kms_buffer_injector_debug,
+//        PLUGIN_NAME, 0, "debug category for " PLUGIN_NAME " element"));
 
 #define KMS_BUFFER_INJECTOR_GET_PRIVATE(obj) ( \
   G_TYPE_INSTANCE_GET_PRIVATE (              \
@@ -315,7 +318,8 @@ kms_buffer_injector_activate_mode (GstPad * pad, GstObject * parent,
 static void
 kms_buffer_injector_init (KmsBufferInjector * self)
 {
-  self->priv = KMS_BUFFER_INJECTOR_GET_PRIVATE (self);
+//  self->priv = KMS_BUFFER_INJECTOR_GET_PRIVATE (self);
+  self->priv = kms_buffer_injector_get_instance_private (self);
 
   self->priv->sinkpad =
       gst_pad_new_from_static_template (&sinktemplate, "sink");

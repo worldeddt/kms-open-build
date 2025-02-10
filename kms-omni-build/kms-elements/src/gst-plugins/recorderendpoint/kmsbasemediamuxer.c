@@ -32,6 +32,7 @@
 GST_DEBUG_CATEGORY_STATIC (kms_base_media_muxer_debug_category);
 #define GST_CAT_DEFAULT kms_base_media_muxer_debug_category
 
+G_DEFINE_TYPE_WITH_PRIVATE (KmsBaseMediaMuxer, kms_base_media_muxer, G_TYPE_OBJECT);
 G_DEFINE_TYPE_WITH_CODE (KmsBaseMediaMuxer, kms_base_media_muxer, G_TYPE_OBJECT,
     GST_DEBUG_CATEGORY_INIT (kms_base_media_muxer_debug_category, OBJECT_NAME,
         0, "debug category for muxing pipeline object"));

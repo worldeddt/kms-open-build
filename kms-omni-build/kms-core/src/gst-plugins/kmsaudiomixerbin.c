@@ -112,11 +112,13 @@ struct _RefCounter
 };
 
 /* class initialization */
+G_DEFINE_TYPE_WITH_PRIVATE (KmsAudioMixerBin, kms_audio_mixer_bin,
+    GST_TYPE_BIN)
 
-G_DEFINE_TYPE_WITH_CODE (KmsAudioMixerBin, kms_audio_mixer_bin,
-    GST_TYPE_BIN,
-    GST_DEBUG_CATEGORY_INIT (kms_audio_mixer_bin_debug_category,
-        PLUGIN_NAME, 0, "debug category for " PLUGIN_NAME " element"));
+//G_DEFINE_TYPE_WITH_CODE (KmsAudioMixerBin, kms_audio_mixer_bin,
+//    GST_TYPE_BIN,
+//    GST_DEBUG_CATEGORY_INIT (kms_audio_mixer_bin_debug_category,
+//        PLUGIN_NAME, 0, "debug category for " PLUGIN_NAME " element"));
 
 static void
 destroy_gulong (gulong * n)
@@ -684,7 +686,8 @@ kms_audio_mixer_bin_init (KmsAudioMixerBin * self)
 {
   GstPad *srcpad;
 
-  self->priv = KMS_AUDIO_MIXER_BIN_GET_PRIVATE (self);
+//  self->priv = KMS_AUDIO_MIXER_BIN_GET_PRIVATE (self);
+  self->priv = kms_audio_mixer_bin_get_instance_private (self);
 
   self->priv->adder = gst_element_factory_make ("audiomixer", NULL);
   gst_bin_add (GST_BIN (self), self->priv->adder);

@@ -95,10 +95,13 @@ static void unlink_adder_sources (GstElement * adder);
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsAudioMixer, kms_audio_mixer,
-    GST_TYPE_BIN,
-    GST_DEBUG_CATEGORY_INIT (kms_audio_mixer_debug_category,
-        PLUGIN_NAME, 0, "debug category for " PLUGIN_NAME " element"));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsAudioMixer, kms_audio_mixer,
+    GST_TYPE_BIN)
+
+//G_DEFINE_TYPE_WITH_CODE (KmsAudioMixer, kms_audio_mixer,
+//    GST_TYPE_BIN,
+//    GST_DEBUG_CATEGORY_INIT (kms_audio_mixer_debug_category,
+//        PLUGIN_NAME, 0, "debug category for " PLUGIN_NAME " element"));
 
 static GstPadProbeReturn
 cb_latency (GstPad * pad, GstPadProbeInfo * info, gpointer data)
@@ -153,13 +156,13 @@ link_new_agnosticbin (gchar * key, GstElement * adder, GstElement * agnosticbin)
     goto end;
   }
 
-  srcpad = gst_element_get_request_pad (agnosticbin, "src_%u");
+  srcpad = gst_element_request_pad_simple (agnosticbin, "src_%u");
   if (srcpad == NULL) {
     GST_ERROR ("Could not get src pad in %" GST_PTR_FORMAT, agnosticbin);
     goto end;
   }
 
-  sinkpad = gst_element_get_request_pad (adder, "sink_%u");
+  sinkpad = gst_element_request_pad_simple (adder, "sink_%u");
   if (sinkpad == NULL) {
     GST_ERROR ("Could not get sink pad in %" GST_PTR_FORMAT, adder);
     gst_element_release_request_pad (agnosticbin, srcpad);
@@ -215,13 +218,13 @@ link_new_adder (gchar * key, GstElement * agnosticbin, GstElement * adder)
   GST_DEBUG ("Linking %s to %s", GST_ELEMENT_NAME (agnosticbin),
       GST_ELEMENT_NAME (adder));
 
-  srcpad = gst_element_get_request_pad (agnosticbin, "src_%u");
+  srcpad = gst_element_request_pad_simple (agnosticbin, "src_%u");
   if (srcpad == NULL) {
     GST_ERROR ("Could not get src pad in %" GST_PTR_FORMAT, agnosticbin);
     goto end;
   }
 
-  sinkpad = gst_element_get_request_pad (adder, "sink_%u");
+  sinkpad = gst_element_request_pad_simple (adder, "sink_%u");
   if (sinkpad == NULL) {
     GST_ERROR ("Could not get sink pad in %" GST_PTR_FORMAT, adder);
     gst_element_release_request_pad (agnosticbin, srcpad);
@@ -794,7 +797,7 @@ end:
 static void
 set_target_cb (GstPad * pad, GstPad * peer, gpointer tee)
 {
-  GstPad *srcpad = gst_element_get_request_pad (GST_ELEMENT (tee), "src_%u");
+  GstPad *srcpad = gst_element_request_pad_simple (GST_ELEMENT (tee), "src_%u");
 
   gst_ghost_pad_set_target (GST_GHOST_PAD (pad), srcpad);
 }
@@ -853,7 +856,7 @@ kms_audio_mixer_add_src_pad (KmsAudioMixer * self, const char *padname)
     goto no_audiotestsrc;
   }
 
-  sinkpad = gst_element_get_request_pad (adder, "sink_%u");
+  sinkpad = gst_element_request_pad_simple (adder, "sink_%u");
   if (sinkpad == NULL) {
     GST_ERROR ("Could not get sink pad in %" GST_PTR_FORMAT, adder);
     goto no_audiotestsrc;
@@ -1055,7 +1058,8 @@ kms_audio_mixer_class_init (KmsAudioMixerClass * klass)
 static void
 kms_audio_mixer_init (KmsAudioMixer * self)
 {
-  self->priv = KMS_AUDIO_MIXER_GET_PRIVATE (self);
+//  self->priv = KMS_AUDIO_MIXER_GET_PRIVATE (self);
+  self->priv = kms_audio_mixer_get_instance_private (self);
 
   self->priv->adders = g_hash_table_new_full (g_str_hash, g_str_equal, g_free,
       NULL);

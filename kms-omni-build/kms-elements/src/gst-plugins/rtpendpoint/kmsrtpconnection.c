@@ -51,10 +51,13 @@ struct _KmsRtpConnectionPrivate
 static void
 kms_rtp_connection_interface_init (KmsIRtpConnectionInterface * iface);
 
-G_DEFINE_TYPE_WITH_CODE (KmsRtpConnection, kms_rtp_connection,
-    KMS_TYPE_RTP_BASE_CONNECTION,
-    G_IMPLEMENT_INTERFACE (KMS_TYPE_I_RTP_CONNECTION,
-        kms_rtp_connection_interface_init));
+G_DEFINE_TYPE_WITH_PRIVATE (KmsRtpConnection, kms_rtp_connection,
+    KMS_TYPE_RTP_BASE_CONNECTION);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsRtpConnection, kms_rtp_connection,
+//    KMS_TYPE_RTP_BASE_CONNECTION,
+//    G_IMPLEMENT_INTERFACE (KMS_TYPE_I_RTP_CONNECTION,
+//        kms_rtp_connection_interface_init));
 
 static guint
 kms_rtp_connection_get_rtp_port (KmsRtpBaseConnection * base_conn)
@@ -326,7 +329,9 @@ kms_rtp_connection_finalize (GObject * object)
 static void
 kms_rtp_connection_init (KmsRtpConnection * self)
 {
-  self->priv = KMS_RTP_CONNECTION_GET_PRIVATE (self);
+  // self->priv = KMS_RTP_CONNECTION_GET_PRIVATE (self);
+   self->priv = kms_rtp_connection_get_instance_private (self);
+
   self->priv->connected = FALSE;
 }
 
@@ -349,7 +354,7 @@ kms_rtp_connection_class_init (KmsRtpConnectionClass * klass)
   base_conn_class->get_rtcp_port = kms_rtp_connection_get_rtcp_port;
   base_conn_class->set_remote_info = kms_rtp_connection_set_remote_info;
 
-  g_type_class_add_private (klass, sizeof (KmsRtpConnectionPrivate));
+  // g_type_class_add_private (klass, sizeof (KmsRtpConnectionPrivate));
 
   g_object_class_override_property (gobject_class, PROP_ADDED, "added");
   g_object_class_override_property (gobject_class, PROP_CONNECTED, "connected");

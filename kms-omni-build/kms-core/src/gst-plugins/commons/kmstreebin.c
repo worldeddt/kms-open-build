@@ -176,7 +176,8 @@ kms_tree_bin_init (KmsTreeBin * self)
   GstElement *fakesink;
   GstPad *sink;
 
-  self->priv = KMS_TREE_BIN_GET_PRIVATE (self);
+//  self->priv = KMS_TREE_BIN_GET_PRIVATE (self);
+  self->priv = kms_tree_bin_get_instance_private (self);
 
   g_mutex_init (&self->priv->input_caps_mutex);
 
