@@ -59,6 +59,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (KmsRtpConnection, kms_rtp_connection,
 //    G_IMPLEMENT_INTERFACE (KMS_TYPE_I_RTP_CONNECTION,
 //        kms_rtp_connection_interface_init));
 
+
 static guint
 kms_rtp_connection_get_rtp_port (KmsRtpBaseConnection * base_conn)
 {
@@ -333,6 +334,14 @@ kms_rtp_connection_init (KmsRtpConnection * self)
    self->priv = kms_rtp_connection_get_instance_private (self);
 
   self->priv->connected = FALSE;
+
+  g_type_interface_add_prerequisite (KMS_TYPE_RTP_CONNECTION, KMS_TYPE_I_RTP_CONNECTION);
+      g_type_add_interface_static (KMS_TYPE_RTP_CONNECTION, KMS_TYPE_I_RTP_CONNECTION,
+                                   &(const GInterfaceInfo) {
+                                       (GInterfaceInitFunc) kms_rtp_connection_interface_init,
+                                       NULL,
+                                       NULL
+                                   });
 }
 
 static void

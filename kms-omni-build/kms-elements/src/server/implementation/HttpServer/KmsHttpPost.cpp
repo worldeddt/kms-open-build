@@ -54,10 +54,13 @@ struct _KmsHttpPostPrivate {
 
 /* class initialization */
 
-G_DEFINE_TYPE_WITH_CODE (KmsHttpPost, kms_http_post,
-                         G_TYPE_OBJECT,
-                         GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, OBJECT_NAME,
-                             0, "debug category for " OBJECT_NAME " element") )
+G_DEFINE_TYPE_WITH_PRIVATE (KmsHttpPost, kms_http_post,
+                         G_TYPE_OBJECT);
+
+//G_DEFINE_TYPE_WITH_CODE (KmsHttpPost, kms_http_post,
+//                         G_TYPE_OBJECT,
+//                         GST_DEBUG_CATEGORY_INIT (GST_CAT_DEFAULT, OBJECT_NAME,
+//                             0, "debug category for " OBJECT_NAME " element") )
 /* properties */
 enum {
   PROP_0,
@@ -742,13 +745,16 @@ kms_http_post_class_init (KmsHttpPostClass *klass)
       g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0, NULL);
 
   /* Registers a private structure for an instantiatable type */
-  g_type_class_add_private (klass, sizeof (KmsHttpPostPrivate) );
+//  g_type_class_add_private (klass, sizeof (KmsHttpPostPrivate) );
 }
 
 static void
 kms_http_post_init (KmsHttpPost *self)
 {
-  self->priv = KMS_HTTP_POST_GET_PRIVATE (self);
+//  self->priv = KMS_HTTP_POST_GET_PRIVATE (self);
+  self->priv =  static_cast<KmsHttpPostPrivate*>(
+                                  kms_http_post_get_instance_private(self)
+                              );
 }
 
 KmsHttpPost *

@@ -502,6 +502,14 @@ kms_srtp_connection_init (KmsSrtpConnection * self)
    self->priv = kms_srtp_connection_get_instance_private (self);
 
   self->priv->connected = FALSE;
+
+  g_type_interface_add_prerequisite (KMS_TYPE_SRTP_CONNECTION, KMS_TYPE_I_RTP_CONNECTION);
+           g_type_add_interface_static (KMS_TYPE_SRTP_CONNECTION, KMS_TYPE_I_RTP_CONNECTION,
+                                        &(const GInterfaceInfo) {
+                                            (GInterfaceInitFunc) kms_srtp_connection_interface_init,
+                                            NULL,
+                                            NULL
+                                        });
 }
 
 static void

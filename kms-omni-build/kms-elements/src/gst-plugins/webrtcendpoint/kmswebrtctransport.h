@@ -62,22 +62,7 @@ G_BEGIN_DECLS
 
 typedef struct _KmsWebRtcTransport KmsWebRtcTransport;
 typedef struct _KmsWebRtcTransportClass KmsWebRtcTransportClass;
-
-typedef struct _KmsWebRtcTransport
-{
-  GObject parent;
-
-  guint component_id;
-
-  KmsWebrtcTransportSrc *src;
-  KmsWebrtcTransportSink *sink;
-
-  guint rtp_id; /* atomic */
-  guint rtcp_id; /* atomic */
-
-  gulong src_probe;
-  gulong sink_probe;
-} KmsWebRtcTransport;
+typedef struct _KmsWebRtcTransportPrivate KmsWebRtcTransportPrivate;
 
 struct _KmsWebRtcTransportClass
 {

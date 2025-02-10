@@ -53,8 +53,8 @@ compare_factory_names (const GValue *velement, GValue *factory_name_val)
 }
 //
 // https://gitlab.freedesktop.org/gstreamer/gstreamer/-/blob/10f72da5040b74678c8f81723971127ee8bee04f/subprojects/gstreamer/gst/gstbin.c#L4553-4574
-static GstIterator *
-gst_bin_iterate_all_by_element_factory_name (GstBin *bin,
+#ifndef HAVE_GST_BIN_ITERATE_ALL_BY_ELEMENT_FACTORY_NAME
+GstIterator * gst_bin_iterate_all_by_element_factory_name (GstBin *bin,
     const gchar *factory_name)
 {
   GstIterator *children;
@@ -75,6 +75,7 @@ gst_bin_iterate_all_by_element_factory_name (GstBin *bin,
 
   return result;
 }
+#endif
 // }}}}
 
 static GstElement *

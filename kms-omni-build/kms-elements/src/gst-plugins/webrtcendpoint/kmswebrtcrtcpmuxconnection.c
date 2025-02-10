@@ -58,6 +58,9 @@ static void
     kms_webrtc_rtcp_mux_connection_interface_init
     (KmsIRtcpMuxConnectionInterface * iface);
 
+G_DEFINE_TYPE_WITH_PRIVATE(KmsWebRtcRtcpMuxConnection,
+                               kms_webrtc_rtcp_mux_connection, KMS_TYPE_WEBRTC_BASE_CONNECTION);
+
 //G_DEFINE_TYPE_WITH_CODE (KmsWebRtcRtcpMuxConnection,
 //    kms_webrtc_rtcp_mux_connection, KMS_TYPE_WEBRTC_BASE_CONNECTION,
 //    G_IMPLEMENT_INTERFACE (KMS_TYPE_I_RTP_CONNECTION,
@@ -302,6 +305,22 @@ kms_webrtc_rtcp_mux_connection_init (KmsWebRtcRtcpMuxConnection * self)
    self->priv = kms_webrtc_rtcp_mux_connection_get_instance_private (self);
 
   self->priv->connected = FALSE;
+
+  g_type_interface_add_prerequisite (KMS_TYPE_WEBRTC_RTCP_MUX_CONNECTION, KMS_TYPE_I_RTP_CONNECTION);
+        g_type_add_interface_static (KMS_TYPE_WEBRTC_RTCP_MUX_CONNECTION, KMS_TYPE_I_RTP_CONNECTION,
+                                     &(const GInterfaceInfo) {
+                                         (GInterfaceInitFunc) kms_webrtc_rtcp_mux_rtp_connection_interface_init,
+                                         NULL,
+                                         NULL
+                                     });
+
+ g_type_interface_add_prerequisite (KMS_TYPE_WEBRTC_RTCP_MUX_CONNECTION, KMS_TYPE_I_RTCP_MUX_CONNECTION);
+         g_type_add_interface_static (KMS_TYPE_WEBRTC_RTCP_MUX_CONNECTION, KMS_TYPE_I_RTCP_MUX_CONNECTION,
+                                      &(const GInterfaceInfo) {
+                                          (GInterfaceInitFunc) kms_webrtc_rtcp_mux_connection_interface_init,
+                                          NULL,
+                                          NULL
+                                      });
 }
 
 static void

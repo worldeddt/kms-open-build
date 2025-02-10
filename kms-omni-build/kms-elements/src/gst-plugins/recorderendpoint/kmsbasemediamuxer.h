@@ -75,6 +75,7 @@ struct _KmsBaseMediaMuxer
   GRecMutex mutex;
   gchar *uri;
   KmsRecordingProfile profile;
+  KmsBaseMediaMuxerPrivate *priv;
 };
 
 struct _KmsBaseMediaMuxerClass

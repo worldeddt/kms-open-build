@@ -339,6 +339,14 @@ kms_webrtc_connection_init (KmsWebRtcConnection * self)
   self->priv->connected = FALSE;
 
   g_mutex_init (&self->priv->mutex);
+
+  g_type_interface_add_prerequisite (KMS_TYPE_WEBRTC_CONNECTION, KMS_TYPE_I_RTP_CONNECTION);
+           g_type_add_interface_static (KMS_TYPE_WEBRTC_CONNECTION, KMS_TYPE_I_RTP_CONNECTION,
+                                        &(const GInterfaceInfo) {
+                                            (GInterfaceInitFunc) kms_webrtc_rtp_connection_interface_init,
+                                            NULL,
+                                            NULL
+                                        });
 }
 
 static void

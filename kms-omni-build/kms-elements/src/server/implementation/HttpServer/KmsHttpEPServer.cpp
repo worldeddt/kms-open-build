@@ -1342,8 +1342,10 @@ equal_str_key (gconstpointer a, gconstpointer b)
 static void
 kms_http_ep_server_init (KmsHttpEPServer *self)
 {
-  self->priv = KMS_HTTP_EP_SERVER_GET_PRIVATE (self);
-  self->priv = kms_http_ep_server_get_instance_private (self);
+//  self->priv = KMS_HTTP_EP_SERVER_GET_PRIVATE (self);
+  self->priv = static_cast<KmsHttpEPServerPrivate*>(
+                   kms_http_ep_server_get_instance_private(self)
+               );
 
   /* Set default values */
   self->priv->server = nullptr;
