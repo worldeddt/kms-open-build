@@ -1,0 +1,14 @@
+{
+  "name": "markerdetector",
+  "version": "6.18.1-dev",
+  "kurentoVersion": "^6.18.1-dev",
+  "code": {
+    "api": {
+      "js": {
+        "nodeName": "kurento-module-markerdetector",
+        "npmDescription": "JavaScript Client API for Kurento Media Server",
+        "npmGit": "Kurento/kurento-module-markerdetector-js"
+      }
+    }
+  }
+}

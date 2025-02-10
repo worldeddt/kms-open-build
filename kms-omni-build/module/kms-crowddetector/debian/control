@@ -1,0 +1,54 @@
+Source: kms-crowddetector
+Maintainer: Kurento <kurento@googlegroups.com>
+Priority: optional
+Build-Depends: debhelper (>= 9),
+ cmake,
+ pkg-config,
+ gstreamer1.5-libav,
+ gstreamer1.5-plugins-bad,
+ gstreamer1.5-plugins-base,
+ gstreamer1.5-plugins-good,
+ kms-core-dev (>= 6.18.1),
+ kms-elements-dev (>= 6.18.1),
+ kms-filters-dev (>= 6.18.1),
+ libopencv-dev
+Standards-Version: 4.0.0
+Homepage: www.kurento.org
+Vcs-Browser: https://github.com/Kurento/kms-crowddetector
+Vcs-Git: https://github.com/Kurento/kms-crowddetector.git
+
+Package: kms-crowddetector
+Architecture: any
+Section: libs
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ gstreamer1.5-libav,
+ gstreamer1.5-plugins-bad,
+ gstreamer1.5-plugins-base,
+ gstreamer1.5-plugins-good,
+ kms-core (>= 6.18.1),
+ kms-elements (>= 6.18.1),
+ kms-filters (>= 6.18.1)
+Breaks: kms-crowddetector-6.0
+Replaces: kms-crowddetector-6.0
+Description: Kurento Crowd Detector filter
+
+Package: kms-crowddetector-dev
+Architecture: any
+Section: libdevel
+Depends: kms-crowddetector (= ${binary:Version}),
+ kms-core-dev,
+ kms-elements-dev,
+ kms-filters-dev,
+ libopencv-dev
+Breaks: kms-crowddetector-6.0-dev
+Replaces: kms-crowddetector-6.0-dev
+Description: Kurento Crowd Detector filter - Development files
+
+Package: kms-crowddetector-dbg
+Architecture: any
+Section: debug
+Depends: kms-crowddetector (= ${binary:Version})
+Breaks: kms-crowddetector-6.0-dbg
+Replaces: kms-crowddetector-6.0-dbg
+Description: Kurento Crowd Detector filter - Debug symbols

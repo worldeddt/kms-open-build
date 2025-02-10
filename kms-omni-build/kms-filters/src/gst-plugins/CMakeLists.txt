@@ -1,0 +1,6 @@
+add_subdirectory(facedetector)
+add_subdirectory(faceoverlay)
+add_subdirectory(imageoverlay)
+add_subdirectory(movementdetector)
+add_subdirectory(opencvfilter)
+add_subdirectory(logooverlay)
