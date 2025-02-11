@@ -20,6 +20,8 @@
 #include <commons/kmselement.h>
 #include "kmshttpendpointmethod.h"
 
+typedef struct _KmsHttpEndpointPrivate KmsHttpEndpointPrivate;
+
 G_BEGIN_DECLS
 #define KMS_TYPE_HTTP_ENDPOINT \
   (kms_http_endpoint_get_type())

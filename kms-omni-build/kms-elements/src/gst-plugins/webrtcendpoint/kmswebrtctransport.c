@@ -26,26 +26,9 @@ GST_DEBUG_CATEGORY_STATIC (GST_CAT_DEFAULT);
 
 #define parent_class kms_webrtc_transport_parent_class
 
-typedef struct _KmsWebRtcTransport
-{
-  GObject parent;
-
-  guint component_id;
-
-  KmsWebrtcTransportSrc *src;
-  KmsWebrtcTransportSink *sink;
-
-  guint rtp_id; /* atomic */
-  guint rtcp_id; /* atomic */
-
-  gulong src_probe;
-  gulong sink_probe;
-};
-
-
 struct _KmsWebRtcTransportPrivate {
     gint some_value;
-}
+};
 
 G_DEFINE_TYPE_WITH_PRIVATE (KmsWebRtcTransport, kms_webrtc_transport,
     G_TYPE_OBJECT);
@@ -98,8 +81,6 @@ kms_webrtc_transport_init (KmsWebRtcTransport * self)
   self->src = KMS_WEBRTC_TRANSPORT_SRC (kms_webrtc_transport_src_nice_new ());
   self->sink =
       KMS_WEBRTC_TRANSPORT_SINK (kms_webrtc_transport_sink_nice_new ());
-
-  self->priv = kms_webrtc_transport_get_instance_private (self);
 }
 
 KmsWebRtcTransport *

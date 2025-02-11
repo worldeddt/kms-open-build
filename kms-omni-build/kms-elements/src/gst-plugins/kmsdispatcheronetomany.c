@@ -30,7 +30,7 @@
 #define KMS_DISPATCHER_ONE_TO_MANY_UNLOCK(mixer) \
   (g_rec_mutex_unlock (&(mixer)->priv->mutex))
 
-GST_DEBUG_CATEGORY_STATIC (kms_dispatcher_one_to_many_debug_category);
+//GST_DEBUG_CATEGORY_STATIC (kms_dispatcher_one_to_many_debug_category);
 #define GST_CAT_DEFAULT kms_dispatcher_one_to_many_debug_category
 
 #define KMS_DISPATCHER_ONE_TO_MANY_GET_PRIVATE(obj) (   \

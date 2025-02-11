@@ -40,6 +40,8 @@ G_DEFINE_TYPE (KmsWebrtcTransportSink, kms_webrtc_transport_sink, GST_TYPE_BIN);
 //
 // https://gitlab.freedesktop.org/gstreamer/gstreamer/-/blob/10f72da5040b74678c8f81723971127ee8bee04f/subprojects/gstreamer/gst/gstbin.c#L4526-4537
 static gint
+compare_factory_names (const GValue *velement, GValue *factory_name_val) G_GNUC_UNUSED;
+static gint
 compare_factory_names (const GValue *velement, GValue *factory_name_val)
 {
   GstElement *element = g_value_get_object (velement);
@@ -53,8 +55,8 @@ compare_factory_names (const GValue *velement, GValue *factory_name_val)
 }
 //
 // https://gitlab.freedesktop.org/gstreamer/gstreamer/-/blob/10f72da5040b74678c8f81723971127ee8bee04f/subprojects/gstreamer/gst/gstbin.c#L4553-4574
-#ifndef HAVE_GST_BIN_ITERATE_ALL_BY_ELEMENT_FACTORY_NAME
-GstIterator * gst_bin_iterate_all_by_element_factory_name (GstBin *bin,
+#if !GST_CHECK_VERSION(1,14,0)
+static GstIterator * gst_bin_iterate_all_by_element_factory_name (GstBin *bin,
     const gchar *factory_name)
 {
   GstIterator *children;

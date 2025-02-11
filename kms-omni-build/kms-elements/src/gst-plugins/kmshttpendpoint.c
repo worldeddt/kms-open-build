@@ -57,6 +57,12 @@ static guint http_ep_signals[LAST_SIGNAL] = { 0 };
 
 /* class initialization */
 
+struct _KmsHttpEndpointPrivate {
+    int some_field;
+    // 추가 private 멤버들...
+};
+
+
 G_DEFINE_TYPE_WITH_PRIVATE (KmsHttpEndpoint, kms_http_endpoint,
     KMS_TYPE_ELEMENT)
 
